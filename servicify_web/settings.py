@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import sys
 import os
 import environ
+from django.core.management.utils import get_random_secret_key
 
 # read .env
 env = environ.Env()
@@ -26,13 +28,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=0#20@v@)j1ww(6d_1pik&m^jxrxf&a1$8fifi@n8hp-j@w0e_'
+# SECRET_KEY = 'django-insecure-=0#20@v@)j1ww(6d_1pik&m^jxrxf&a1$8fifi@n8hp-j@w0e_'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
-                 '192.168.1.2', '192.168.100.39', '192.168.100.38']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
+#                  '192.168.1.2', '192.168.100.39', '192.168.100.38']
+os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 SECURE_SSL_REDIRECT = False
 
@@ -105,32 +112,46 @@ WSGI_APPLICATION = 'servicify_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    # SQLITE
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': {
+# DATABASES = {
+#     # SQLITE
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': BASE_DIR / 'db.sqlite3',
+#     # }
+#     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'servicify',
+#         'NAME': 'servicify',
 
-        'USER': 'postgres',
+#         'USER': 'postgres',
 
-        'PASSWORD': 'postgres',
+#         'PASSWORD': 'postgres',
 
-        'HOST': '127.0.0.1',
+#         'HOST': '127.0.0.1',
 
-        # please change the port thanks
+#         # please change the port thanks
 
-        'PORT': '8080',
-        # 'PORT': '8080',
+#         'PORT': '8080',
+#         # 'PORT': '8080',
 
+#     }
+# }
+
+
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
     }
-}
-
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -167,7 +188,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),os.path.join(BASE_DIR, "media"),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
