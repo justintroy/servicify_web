@@ -15,6 +15,7 @@ import sys
 import os
 import environ
 from django.core.management.utils import get_random_secret_key
+import dj_database_url
 
 # read .env
 env = environ.Env()
