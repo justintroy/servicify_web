@@ -358,6 +358,7 @@
 }
 
 .categories a img {
+    width: 60px;
     margin-bottom: 20px;
     /* filter: grayscale; */
 }
