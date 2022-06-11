@@ -199,8 +199,8 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' PROD
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # DEV
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # DEV
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
