@@ -530,15 +530,17 @@ def register(request):
                 request.session['user_instance'] = user.id
                 return redirect(reverse('social:complete', kwargs={'backend': 'facebook'}))
             else:
-                current_site = get_current_site(request)
-                subject = 'Servicify: Activate your account'
-                message = render_to_string('email-activation.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                })
-                user.email_user(subject=subject, message=message)
+                # current_site = get_current_site(request)
+                # subject = 'Servicify: Activate your account'
+                # message = render_to_string('email-activation.html', {
+                #     'user': user,
+                #     'domain': current_site.domain,
+                #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                #     'token': account_activation_token.make_token(user),
+                # })
+                # user.email_user(subject=subject, message=message)
+                user.is_active = True
+                user.save()
                 return render(request, 'includes/registration-success.html', {'email': user.email})
     else:
         registerForm = RegistrationForm(initial=initial_data)
