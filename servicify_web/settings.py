@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'sslserver',
     # Social Auth App Django
     'social_django',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -202,8 +203,9 @@ from cdn.conf import *
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # DEV
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
@@ -281,5 +283,9 @@ LOCATION_FIELD = {
     },
 }
 
+ANYMAIL = {
+    "SENDINBLUE_API_KEY": os.getenv("SENDINBLUE_API_KEY", False),
+}
+
 # Set this true only when needed, it charges the API
-SMS_NOTIFICATION = False
+SMS_NOTIFICATION = os.getenv("USE_TWILIO", False)
