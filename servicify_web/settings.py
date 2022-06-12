@@ -251,7 +251,7 @@ PHONENUMBER_DEFAULT_REGION = 'PH'
 PHONENUMBER_DEFAULT_FORMAT = 'E164'
 
 # django-location-field
-LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
+LOCATION_FIELD_PATH = STATIC_ROOT + 'location_field'
 
 LOCATION_FIELD = {
     'map.provider': 'google',
