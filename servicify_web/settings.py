@@ -15,7 +15,6 @@ import sys
 import os
 import environ
 from django.core.management.utils import get_random_secret_key
-from django.templatetags.static import static
 import dj_database_url
 
 # read .env
@@ -252,7 +251,7 @@ PHONENUMBER_DEFAULT_REGION = 'PH'
 PHONENUMBER_DEFAULT_FORMAT = 'E164'
 
 # django-location-field
-LOCATION_FIELD_PATH = static('location_field')
+LOCATION_FIELD_PATH = 'https://sgp1.digitaloceanspaces.com/servicify-media/static/location_field'
 
 LOCATION_FIELD = {
     'map.provider': 'google',
@@ -279,7 +278,7 @@ LOCATION_FIELD = {
     'resources.root_path': LOCATION_FIELD_PATH,
     'resources.media': {
         'js': (
-            static('location_field/js/form.js'),
+            LOCATION_FIELD_PATH + '/js/form.js',
         ),
     },
 }
