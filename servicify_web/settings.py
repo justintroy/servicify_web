@@ -287,5 +287,8 @@ ANYMAIL = {
     "SENDINBLUE_API_KEY": os.getenv("SENDINBLUE_API_KEY", False),
 }
 
+DEFAULT_FROM_EMAIL = "xermasterz@gmail.com"
+SERVER_EMAIL = "xermasterz@gmail.com"  # ditto (default from-email for Django errors)
+
 # Set this true only when needed, it charges the API
 SMS_NOTIFICATION = os.getenv("USE_TWILIO", False)
