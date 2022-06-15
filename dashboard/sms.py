@@ -13,7 +13,7 @@ msg_srv_sid = env('TWILIO_MSG_SID')
 
 
 def send_sms(recipient, text_body):
-    if settings.SMS_NOTIFICATION:
+    if settings.SMS_NOTIFICATION is True:
         client = Client(account_sid, auth_token)
 
         text_body += '\n\n\
