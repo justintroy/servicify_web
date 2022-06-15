@@ -75,9 +75,11 @@
                         <i class="fa-solid fa-clock"></i>
                         <p>Created {{ work_offer.created_at|naturaltime }}</p>
                     </div>
+                    {% if request.user.is_authenticated and work_offer.created_by.id == request.user.mainuser.id %}
                     <div class="edit-btn">
                         <a href="/workoffer/{{ work_offer.id }}/edit">Edit</a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="wo-pricing">
