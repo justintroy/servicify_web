@@ -16,8 +16,7 @@ def send_sms(recipient, text_body):
     if settings.SMS_NOTIFICATION is True:
         client = Client(account_sid, auth_token)
 
-        text_body += '\n\n\
-            - SMS notification from Servicify.'
+        text_body += '\n\n- SMS notification from Servicify.'
         message = client.messages.create(
             body=text_body,
             messaging_service_sid=msg_srv_sid,

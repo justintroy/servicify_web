@@ -229,8 +229,7 @@ def view_bidding_details(request, work_offer_id, bidding_id):
             bid.save()
             bid.workoffer_id.save()
             send_sms(str(bid.bidder_id.phone_number),
-                f"Hello {bid.bidder_id.full_name},\n\nYour {bid.workoffer_id.work_name} bid has been ACCEPTED by the client.\
-                    You may contact the client to discuss further: {bid.workoffer_id.created_by.phone_number}.")
+                f"Hello {bid.bidder_id.full_name},\n\nYour {bid.workoffer_id.work_name} bid has been ACCEPTED by the client. You may contact the client to discuss further: {bid.workoffer_id.created_by.phone_number}.")
         elif request.POST.get('decline-bid', False):
             bid.status = 'DECLINED'
             bid.save()
