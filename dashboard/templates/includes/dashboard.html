@@ -7,6 +7,7 @@
 {% endblock %}
 {% block content %}
 {% include 'navbar.html' %}
+
 <script>
 
     var distance = (lat1, lon1, lat2, lon2, unit) => {
@@ -141,11 +142,30 @@
                         {% endfor %}
                     </div>
                     <p>{{service.service_name|truncatechars:16}}</p>
-                    <p>{{service.service_type}}</p>
+                    <p style="font-weight: normal !important;">{{service.service_type}}</p>
                     <div class="service-loc">
-                        {% if service.street %} <p><span class="service-loc-l" hidden>{{ service.location }}</span>{{ service.street }}</p>
-                        {% elif service.sublocality %} <p><span class="service-loc-l" hidden>{{ service.location }}</span>{{ service.sublocality }}</p>
-                        {% elif service.locality %} <p><span class="service-loc-l" hidden>{{ service.location }}</span>{{service.locality}}</p> {% endif %}
+                        {% if service.street %} 
+                        <p style="font-weight: normal !important;">
+                            <span class="service-loc-l" style="font-weight: normal !important;" hidden>
+                                {{ service.location }}
+                            </span>
+                            {{service.street}}
+                        </p>
+                        {% elif service.sublocality %} 
+                            <p style="font-weight: normal !important;">
+                                <span class="service-loc-l" style="font-weight: normal !important;" hidden>
+                                    {{ service.location }}
+                                </span>
+                                {{service.sublocality}}
+                            </p>
+                        {% elif service.locality %}
+                        <p style="font-weight: normal !important;">
+                            <span class="service-loc-l" style="font-weight: normal !important;" hidden>
+                                {{ service.location}}
+                            </span>
+                            {{service.locality}}
+                        </p> 
+                        {% endif %}
                     </div>
                 </a>
             </li>
@@ -194,5 +214,6 @@
     </form>
 </div>
 <button id="scroll-top" class="scroll-top"><i class="fa-solid fa-arrow-up"></i></button>
+
 {% include 'footer.html' %}
 {% endblock %}
