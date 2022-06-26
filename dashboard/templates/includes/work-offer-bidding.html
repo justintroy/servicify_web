@@ -76,9 +76,9 @@
                         <p>Created {{ work_offer.created_at|naturaltime }}</p>
                     </div>
                     {% if request.user.is_authenticated and work_offer.created_by.id == request.user.mainuser.id %}
-                    <!-- <div class="edit-btn">
-                        <a href="/workoffer/{{ work_offer.id }}/edit">Edit</a>
-                    </div> -->
+                    <div class="edit-btn">
+                        <a href="{% url 'edit_work_offer' work_offer.id %}">Edit</a>
+                    </div>
                     {% endif %}
                 </div>
             </div>

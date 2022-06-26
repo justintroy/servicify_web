@@ -98,9 +98,9 @@
                             <span>Manage</span>
                         </a>
                     </div>
-                    <!-- <div class="srvc-dtl-tag-containers">
-                        <a href="/service/{{service.id}}/edit/">Edit</a>
-                    </div> -->
+                    <div class="srvc-dtl-tag-containers">
+                        <a href="{% url 'edit_service' service.id %}">Edit</a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
