@@ -23,10 +23,10 @@ def service_review_directory_path(instance, filename):
     return 'services/review_images/{0}/{1}'.format(instance.service_review.id, filename)
 
 def service_type_directory_path(instance, filename):
-    return 'services/types/{0}/{1}'.format(instance.bid.id, filename)
+    return 'services/types/{0}/{1}'.format(instance.id, filename)
 
 def bid_document_directory_path(instance, filename):
-    return 'workoffers/bids/{0}/{1}'.format(instance.id, filename)
+    return 'workoffers/bids/{0}/{1}'.format(instance.bid.id, filename)
 
 # Create your models here.
 
