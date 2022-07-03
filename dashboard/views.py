@@ -189,15 +189,14 @@ def work_offer_bidding(request, work_offer_id):
             if bidForm.cleaned_data["bid_amount"] < 0:
                 form_errors.append('Bid amount must be greater than zero.')
             else:
-                bid = bidForm.save(commit=False)
+                bid = bidForm.save()
                 bid.bidder_id = request.user.mainuser
                 bid.workoffer_id = work_offer
                 bid.status = 'PENDING'
-                savedBid = bid.save(commit=True)
 
                 for doc in request.FILES.getlist('file'):
-                    savedBid.document = doc
-                    savedBid.save()
+                    bid.document = doc
+                    bid.save()
                 
                 send_sms(str(work_offer.created_by.phone_number),
                      f"Hello {work_offer.created_by.full_name},\n\nYour {work_offer.work_name} has a new bid from user {request.user.mainuser.full_name} with amount of {round(bid.bid_amount, 2)}PHP.")
