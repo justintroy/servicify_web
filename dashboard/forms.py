@@ -188,10 +188,11 @@ class CreateWorkOfferBidForm(forms.ModelForm):
                                  max_length=1000, help_text='Required', widget=forms.Textarea)
     bid_amount = forms.DecimalField(
         max_digits=19, decimal_places=4, help_text='Required')
+    document = forms.FileField(required=False)
 
     class Meta:
         model = Bid
-        fields = ['bidder_msg', 'bid_amount']
+        fields = ['bidder_msg', 'bid_amount', 'document']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -199,3 +200,5 @@ class CreateWorkOfferBidForm(forms.ModelForm):
             {'placeholder': 'Enter your bid', 'name': 'bid_amount', 'id': 'bid_amount'})
         self.fields['bidder_msg'].widget.attrs.update(
             {'placeholder': 'Message', 'name': 'bidder_msg', 'id': 'bidder_msg'})
+        self.fields['document'].widget.attrs.update(
+            {'placeholder': 'Optional Credential Document', 'name': 'document', 'id': 'document'})
