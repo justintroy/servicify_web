@@ -147,6 +147,20 @@ class Bid(models.Model):
     status = models.CharField(max_length=64)
     document = models.FileField(blank=True, upload_to=bid_document_directory_path)
 
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            saved = []
+            for f in self.__class__._meta.get_fields():
+                if isinstance(f, models.FileField):
+                    saved.append((f.name, getattr(self, f.name)))
+                    setattr(self, f.name, None)
+
+            super(self.__class__, self).save(*args, **kwargs)
+
+            for name, val in saved:
+                setattr(self, name, val)
+        super(self.__class__, self).save(*args, **kwargs)
+
 @receiver(models.signals.post_delete, sender=ServiceImage)
 def auto_delete_service_img_on_delete(sender, instance, **kwargs):
     if instance.image:
