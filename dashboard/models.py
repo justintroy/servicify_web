@@ -25,6 +25,9 @@ def service_review_directory_path(instance, filename):
 def service_type_directory_path(instance, filename):
     return 'services/types/{0}/{1}'.format(instance.id, filename)
 
+def bid_document_directory_path(instance, filename):
+    return 'workoffers/bids/{0}/{1}'.format(instance.id, filename)
+
 # Create your models here.
 
 # this extends Django's built-in User model
@@ -142,10 +145,19 @@ class Bid(models.Model):
     bidder_msg = models.TextField()
     bid_amount = models.DecimalField(max_digits=19, decimal_places=4)
     status = models.CharField(max_length=64)
-    document = models.FileField(blank=True)
+    document = models.FileField(blank=True, upload_to=bid_document_directory_path)
 
 @receiver(models.signals.post_delete, sender=ServiceImage)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    print(instance)
+def auto_delete_service_img_on_delete(sender, instance, **kwargs):
     if instance.image:
         instance.image.delete(save=False)
+
+@receiver(models.signals.post_delete, sender=WorkOfferImage)
+def auto_delete_wo_img_on_delete(sender, instance, **kwargs):
+    if instance.image:
+        instance.image.delete(save=False)
+
+@receiver(models.signals.post_delete, sender=Bid)
+def auto_delete_doc_on_delete(sender, instance, **kwargs):
+    if instance.document:
+        instance.document.delete(save=False)

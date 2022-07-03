@@ -184,7 +184,7 @@ def work_offer_bidding(request, work_offer_id):
         if winning_bid:
             form_errors.append('Bidding is already closed.')
 
-        bidForm = CreateWorkOfferBidForm(request.POST)
+        bidForm = CreateWorkOfferBidForm(request.POST, request.FILES)
         if bidForm.is_valid():
             if bidForm.cleaned_data["bid_amount"] < 0:
                 form_errors.append('Bid amount must be greater than zero.')
@@ -194,6 +194,11 @@ def work_offer_bidding(request, work_offer_id):
                 bid.workoffer_id = work_offer
                 bid.status = 'PENDING'
                 bid.save()
+
+                for doc in request.FILES.getlist('file'):
+                    bid.document = doc
+                    bid.save()
+                
                 send_sms(str(work_offer.created_by.phone_number),
                      f"Hello {work_offer.created_by.full_name},\n\nYour {work_offer.work_name} has a new bid from user {request.user.mainuser.full_name} with amount of {round(bid.bid_amount, 2)}PHP.")
                 return HttpResponseRedirect(work_offer_id)

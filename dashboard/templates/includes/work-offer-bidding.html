@@ -97,7 +97,7 @@
                     {% if winning_bid %}
                     <em class="wo-bd-closed">Bidding is already closed.</em>
                     {% else %}
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% if form_errors %}
                         <div class="wo-bid-error">
@@ -225,6 +225,9 @@
                                 {% if request.user.is_authenticated and work_offer.created_by.id == request.user.mainuser.id %}
                                 <td>
                                     <a href="{% url 'view_bidding_details' work_offer.id bid.id %}">View</a>
+                                    {% if work_offer.document %}
+                                    | <a href="{{ work_offer.document.url }}">View Document</a>
+                                    {% endif %}
                                 </td>
                                 {% endif %}
                             </tr>
