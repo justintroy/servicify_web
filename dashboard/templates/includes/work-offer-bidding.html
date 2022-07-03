@@ -113,9 +113,9 @@
                             <button type="submit">Bid Now</button>
                         </div>
 
-                        <div class="wo-bid-input">
-                            <p>(Optional) Upload your Credentials (ie. Resume, CV, License, etc,.)</p>
-                            {{ bid_form.document }}
+                        <div class="wo-bid-upload">
+                            <label for="file">(Optional) Upload your Credentials (ie. Resume, CV, License, etc,.)</label>
+                            <input type="file" name="file" id="file" accept="application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                         </div>
                         
                         <div class="wo-bid-message">
