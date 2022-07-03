@@ -142,7 +142,7 @@ class Bid(models.Model):
     bidder_msg = models.TextField()
     bid_amount = models.DecimalField(max_digits=19, decimal_places=4)
     status = models.CharField(max_length=64)
-    document = models.FileField()
+    document = models.FileField(blank=True)
 
 @receiver(models.signals.post_delete, sender=ServiceImage)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
