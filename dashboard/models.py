@@ -147,5 +147,5 @@ class Bid(models.Model):
 @receiver(models.signals.post_delete, sender=ServiceImage)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     print(instance)
-    if instance.image.attr_class:
-        instance.image.attr_class.delete(save=False)
+    if instance.image:
+        instance.image.delete(save=False)
