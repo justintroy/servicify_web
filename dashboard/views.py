@@ -414,7 +414,7 @@ def service_requests(request, service_id):
         if updated_status == 'ACCEPT' and service_client.status == 'PENDING':
             service_client.status = 'ON-GOING'
             send_sms(str(service_client.client_id.phone_number),
-                     f"Hello {service_client.client_id.full_name},\n\nYour {service.service_name} service request has been ACCEPTED and placed into ON-GOING by the service owner.")
+                     f"Hello {service_client.client_id.full_name},\n\nYour {service.service_name} service request has been ACCEPTED and placed into ON-GOING by the service owner. You may now contact the service at {service.created_by.phone_number} for more details.")
             service_client.save()
         elif updated_status == 'DECLINE' and service_client.status == 'PENDING':
             service_client.status = 'DECLINED'
