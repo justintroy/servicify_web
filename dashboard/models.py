@@ -23,7 +23,7 @@ def service_review_directory_path(instance, filename):
     return 'services/review_images/{0}/{1}'.format(instance.service_review.id, filename)
 
 def service_type_directory_path(instance, filename):
-    return 'services/types/{0}/{1}'.format(instance.id, filename)
+    return 'services/types/{0}/{1}'.format(instance.bid.id, filename)
 
 def bid_document_directory_path(instance, filename):
     return 'workoffers/bids/{0}/{1}'.format(instance.id, filename)
@@ -145,7 +145,10 @@ class Bid(models.Model):
     bidder_msg = models.TextField()
     bid_amount = models.DecimalField(max_digits=19, decimal_places=4)
     status = models.CharField(max_length=64)
-    document = models.FileField(blank=True, upload_to=bid_document_directory_path)
+
+class BidDocument(models.Model):
+   bid = models.ForeignKey(Bid, on_delete=models.CASCADE)
+   document = models.FileField(blank=True, upload_to=bid_document_directory_path)
 
 @receiver(models.signals.post_delete, sender=ServiceImage)
 def auto_delete_service_img_on_delete(sender, instance, **kwargs):

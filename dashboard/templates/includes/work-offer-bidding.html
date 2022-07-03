@@ -114,6 +114,7 @@
                         </div>
 
                         <div class="wo-bid-input">
+                            <p>(Optional) Upload your Credentials (ie. Resume, CV, License, etc,.)</p>
                             {{ bid_form.document }}
                         </div>
                         
@@ -225,9 +226,9 @@
                                 {% if request.user.is_authenticated and work_offer.created_by.id == request.user.mainuser.id %}
                                 <td>
                                     <a href="{% url 'view_bidding_details' work_offer.id bid.id %}">View</a>
-                                    {% if work_offer.document.url %}
-                                    | <a href="{{ work_offer.document.url }}">View Document</a>
-                                    {% endif %}
+                                    {% for document in work_offer.biddocument_set.all|slice:":1" %}
+                                    | <a href="{{ document.url }}">View Document</a>
+                                    {% endfor %}
                                 </td>
                                 {% endif %}
                             </tr>
