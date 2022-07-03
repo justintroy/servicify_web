@@ -225,7 +225,7 @@
                                 {% if request.user.is_authenticated and work_offer.created_by.id == request.user.mainuser.id %}
                                 <td>
                                     <a href="{% url 'view_bidding_details' work_offer.id bid.id %}">View</a>
-                                    {% if work_offer.document %}
+                                    {% if work_offer.document.url %}
                                     | <a href="{{ work_offer.document.url }}">View Document</a>
                                     {% endif %}
                                 </td>
