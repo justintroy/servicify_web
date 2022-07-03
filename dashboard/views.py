@@ -189,10 +189,11 @@ def work_offer_bidding(request, work_offer_id):
             if bidForm.cleaned_data["bid_amount"] < 0:
                 form_errors.append('Bid amount must be greater than zero.')
             else:
-                bid = bidForm.save()
+                bid = bidForm.save(commit=False)
                 bid.bidder_id = request.user.mainuser
                 bid.workoffer_id = work_offer
                 bid.status = 'PENDING'
+                bid.save(force_insert=True)
 
                 for doc in request.FILES.getlist('file'):
                     bid.document = doc
