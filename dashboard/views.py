@@ -193,7 +193,7 @@ def work_offer_bidding(request, work_offer_id):
                 bid.bidder_id = request.user.mainuser
                 bid.workoffer_id = work_offer
                 bid.status = 'PENDING'
-                savedBid = bid.save()
+                savedBid = bid.save(commit=True)
 
                 for doc in request.FILES.getlist('file'):
                     savedBid.document = doc
