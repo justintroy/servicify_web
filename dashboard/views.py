@@ -340,7 +340,7 @@ def service_details(request, service_id):
         client_acquired_service_review = reviews.filter(
             transaction_id__client_id=request.user.mainuser).first()
         client_acquired_service = ServiceClients.objects.filter(
-            service_id=service, client_id=request.user.mainuser).first()
+            service_id=service, client_id=request.user.mainuser).exclude(status='DECLINED').first()
 
         if client_acquired_service:
             review_form = RateServiceForm()
