@@ -568,7 +568,7 @@ def register(request):
                     user.is_active = True
                     user.save()
 
-                return render(request, 'includes/registration-success.html', {'email': user.email})
+                return render(request, 'includes/registration-complete.html', {'email': user.email})
     else:
         registerForm = RegistrationForm(initial=initial_data)
         mainUserForm = MainUserRegistrationForm()
