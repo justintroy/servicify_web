@@ -164,7 +164,7 @@
             <li class="dashboard-show-more">
                 <a href="workoffer" class="dashboard-show-href">
                     <i class="fa-solid fa-arrow-right-long"></i>
-                    <p>Show more</p>
+                    <p class="dashboard-show-more-p">Show more</p>
                 </a>
             </li>
         </ul>
@@ -183,27 +183,27 @@
                     <p>{{service.service_name|truncatechars:16}}</p>
                     <p style="font-weight: normal !important;">{{service.service_type}}</p>
                     <div class="service-loc">
-                        {% if service.street %} 
+                        {% if service.street %}
                         <p style="font-weight: normal !important;">
                             <span class="service-loc-l" style="font-weight: normal !important;" hidden>
                                 {{ service.location }}
                             </span>
                             {{service.street}}
                         </p>
-                        {% elif service.sublocality %} 
-                            <p style="font-weight: normal !important;">
-                                <span class="service-loc-l" style="font-weight: normal !important;" hidden>
-                                    {{ service.location }}
-                                </span>
-                                {{service.sublocality}}
-                            </p>
+                        {% elif service.sublocality %}
+                        <p style="font-weight: normal !important;">
+                            <span class="service-loc-l" style="font-weight: normal !important;" hidden>
+                                {{ service.location }}
+                            </span>
+                            {{service.sublocality}}
+                        </p>
                         {% elif service.locality %}
                         <p style="font-weight: normal !important;">
                             <span class="service-loc-l" style="font-weight: normal !important;" hidden>
                                 {{ service.location}}
                             </span>
                             {{service.locality}}
-                        </p> 
+                        </p>
                         {% endif %}
                     </div>
                 </a>
@@ -212,7 +212,7 @@
             <li class="dashboard-show-more-2">
                 <a href="service-marketplace">
                     <i class="fa-solid fa-arrow-right-long"></i>
-                    <p>Show more</p>
+                    <p class="dashboard-show-more-p">Show more</p>
                 </a>
             </li>
         </ul>
